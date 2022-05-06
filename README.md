@@ -47,7 +47,6 @@ mrz_dl,face=mrz_reader.predict("./example.jpg")
 After you give this image to the models , you will take this result ***P<GBRUNITED<KINGDOM<FIVE<<JODIE<PIPPA<<<<<<<1071857032GBR8501178F1601312<<<<<<<<<<<<<<02*** as a string. This study is a basic solution . Your image which you give  should be clear, and it should cover whole area.
 <br/><br/>
 <br/><br/>
-<br/><br/>
 
 
  ## Libraries - Refs
