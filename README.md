@@ -25,13 +25,13 @@ mrz_reader.load()
 #If you want detect face 
 mrz_reader.facedetect=True
 
-#Befero tesseract , check skewness
+#Before tesseract , check skewness
 mrz_reader.skewness=False
 
-#Befero tesseract , delete shadows
+#Before tesseract , delete shadows
 mrz_reader.delete_shadows=True
 
-#Befero tesseract , clear background
+#Before tesseract , clear background
 mrz_reader.clear_background=True
 
 mrz_dl,face=mrz_reader.predict("./example.jpg")
