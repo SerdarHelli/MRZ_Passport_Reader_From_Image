@@ -1,0 +1,6 @@
+tensorflow>=2.6.0
+opencv_python_headless>=4.5.3.56
+pytesseract>=0.3.8
+scipy>=1.5.2
+imutils>=0.5.4
+deskew>=0.10.36
