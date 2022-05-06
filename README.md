@@ -1,6 +1,6 @@
 # MRZ_Passport_Reader_From_Image
 
-This study detect and recognize MRZ ID from passport images. It includes our own model to segment mrz area then we are using Tesseract OCR to recognize text.
+The of this study are to detect and recognize MRZ ID from one-shot passport images. It includes our own model to segment mrz area. Then, we are using Tesseract OCR to recognize text.
 
 
  
