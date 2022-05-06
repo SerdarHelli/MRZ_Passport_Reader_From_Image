@@ -1,0 +1,1 @@
+Here, In this directory, you must download tesseract-python
