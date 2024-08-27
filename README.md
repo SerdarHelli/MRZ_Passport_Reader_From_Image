@@ -57,8 +57,12 @@ text_results,segmented_image ,detected_face = reader.predict(
 )
 # Display results
 print("Recognized Text:")
-for bbox, text, confidence in text_results:
-    print(f"Text: {text}, Confidence: {confidence:.2f}")
+for result in text_results:
+    bbox, text, confidence = result
+    print(f"Bounding Box on segmented_image: {bbox}")
+    print(f"Recognized Text: {text}")
+    print(f"Confidence: {confidence:.2f}")
+    print("-" * 50)
 
 if detected_face is not None:
     print("Face detected in the image.")
