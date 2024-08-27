@@ -1,42 +1,69 @@
-# MRZ_Passport_Reader_From_Image
+# MRZ Passport Reader from Image
 
-The of this study are to detect and recognize MRZ ID from one-shot passport images. It includes our own model to segment mrz area. Then, we are using Tesseract OCR to recognize text.
+This project is an implementation of a Machine-Readable Zone (MRZ) reader from images using segmentation, face detection, and Optical Character Recognition (OCR). The implementation leverages TensorFlow Lite models for segmentation, a Caffe model for face detection, and EasyOCR for text recognition.
+
+## Features
+
+- **MRZ Detection**: Automatically detects and segments the MRZ region in passport images.
+- **Face Detection**: Identifies and crops the face from the passport image.
+- **OCR with EasyOCR**: Extracts text from the segmented MRZ region using EasyOCR.
+- **Preprocessing**: Includes optional preprocessing steps such as skew correction, shadow removal, and background clearing to improve OCR accuracy.
+
+## Installation
+
+### Prerequisites
+
+- Python 3.10 or higher
+- Install the required Python packages from the `requirements.txt` file:
+
+```bash
+git clone https://github.com/yourusername/MRZ_Passport_Reader_From_Image.git
+cd MRZ_Passport_Reader_From_Image
+pip install -e . -q
+```
 
 
- 
- ## Setup Tesseract 
+## Example Usage
+```python
 
-- Setup Tesseract into Tesseract-OCR directory - [You should download tesseract-ocr-w64-setup-v5.0.0-alpha.20210811 version](https://digi.bib.uni-mannheim.de/tesseract/)
-- Then , Copy all files which are at ./tesseract_trained  to ./Tesseract-OCR/tessdata .These files are trained models.
-- Finally , run this command  ```pip install -r ./requirements.txt ``` to install necessary libraries
+import json
+import cv2
+from mrz_reader.reader import MRZReader
 
 
-Now, You are ready
- 
- 
- 
-  ```python
+# Initialize the MRZReader
+reader = mrz_reader.reader.MRZReader( 
+    facedetection_protxt = "./weights/face_detector/deploy.prototxt",
+    facedetection_caffemodel = "./weights/face_detector/res10_300x300_ssd_iter_140000.caffemodel",
+    segmentation_model = "./weights/mrz_detector/mrz_seg.tflite",
+    easy_ocr_params = { "lang_list": ["en"], "gpu": False }
 
-from mrz_reader import mrz_reader
- 
-mrz_reader=mrz_reader()
-mrz_reader.load()
+)
+# Load an image
+image_path = 'path_to_your_image.jpg'
+image = cv2.imread(image_path)
 
-#If you want detect face 
-mrz_reader.facedetect=True
+# Perform MRZ reading with preprocessing and face detection
+text_results, segmented_image, detected_face = mrz_reader.predict(
+    image, do_facedetect=True, preprocess_config=preprocess_config)
 
-#Before tesseract , check skewness
-mrz_reader.skewness=False
+# Display results
+print("Recognized Text:")
+for bbox, text, confidence in text_results:
+    print(f"Text: {text}, Confidence: {confidence:.2f}")
 
-#Before tesseract , delete shadows
-mrz_reader.delete_shadows=True
+if detected_face is not None:
+    print("Face detected in the image.")
 
-#Before tesseract , clear background
-mrz_reader.clear_background=True
+# Display the images
+cv2.imshow("Segmented Image", segmented_image)
+if detected_face is not None:
+    cv2.imshow("Detected Face", detected_face)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
-mrz_dl,face=mrz_reader.predict("./example.jpg")
+```
 
- ```
  ## Example Result 
  
  
@@ -49,8 +76,3 @@ After you give this image to the models , you will take this result ***P<GBRUNIT
 <br/><br/>
 
 
- ## Libraries - Refs
- 
- - [Tesseract OCR Engine ](https://github.com/tesseract-ocr/tesseract)
- - [Skewness ](https://github.com/sbrunner/deskew)
- 

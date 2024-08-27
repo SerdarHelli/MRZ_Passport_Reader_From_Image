@@ -1,0 +1,7 @@
+README.md
+setup.py
+mrz_reader/mrz_reader.egg-info/PKG-INFO
+mrz_reader/mrz_reader.egg-info/SOURCES.txt
+mrz_reader/mrz_reader.egg-info/dependency_links.txt
+mrz_reader/mrz_reader.egg-info/requires.txt
+mrz_reader/mrz_reader.egg-info/top_level.txt
