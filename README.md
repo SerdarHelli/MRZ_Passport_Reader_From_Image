@@ -17,7 +17,7 @@ This project is an implementation of a Machine-Readable Zone (MRZ) reader from i
 - Install the required Python packages from the `requirements.txt` file:
 
 ```bash
-git clone https://github.com/yourusername/MRZ_Passport_Reader_From_Image.git
+git clone https://github.com/SerdarHelli/MRZ_Passport_Reader_From_Image.git
 cd MRZ_Passport_Reader_From_Image
 pip install -e . -q
 ```
@@ -41,12 +41,20 @@ reader = mrz_reader.reader.MRZReader(
 )
 # Load an image
 image_path = 'path_to_your_image.jpg'
-image = cv2.imread(image_path)
 
 # Perform MRZ reading with preprocessing and face detection
-text_results, segmented_image, detected_face = mrz_reader.predict(
-    image, do_facedetect=True, preprocess_config=preprocess_config)
 
+text_results,segmented_image ,detected_face = reader.predict(
+    image_path,
+    do_facedetect = True,
+    preprocess_config = {
+            "do_preprocess": False,
+            "skewness": False,
+            "delete_shadow": False,
+            "clear_background": False
+        } # or {} send empty
+
+)
 # Display results
 print("Recognized Text:")
 for bbox, text, confidence in text_results:
